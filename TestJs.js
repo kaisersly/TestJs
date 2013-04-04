@@ -81,9 +81,4 @@ function TestJs (output) {
         Test.output.info(text);
     };
     return Test;
-}
-
-var myTest = new TestJs("document");
-myTest.assert(true, true, "True");
-myTest.assert(true, false, "True");
-myTest.info("Info");
+};

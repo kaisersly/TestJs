@@ -1,4 +1,4 @@
-function TestJs (output) {
+function TestJs (output, css) {
     function log(text) {
         window.console.log(text);
     };
@@ -11,7 +11,7 @@ function TestJs (output) {
     function clear() {
         window.console.clear();
     };
-    var Test = {};
+    var TestJs = {};
     var testConsole = {
         init: function () {
         },
@@ -33,7 +33,8 @@ function TestJs (output) {
             var stylesheet = document.createElement("link");
             stylesheet.setAttribute("rel", "stylesheet");
             stylesheet.setAttribute("type", "text/css");
-            stylesheet.setAttribute("href", "TestJs/TestJs.css");
+            var css_path = css || "TestJs/TestJs.css";
+            stylesheet.setAttribute("href", css_path);
             document.getElementsByTagName("head")[0].appendChild(stylesheet);
             
             var ul = document.getElementById("tests");
@@ -74,36 +75,36 @@ function TestJs (output) {
     };
     switch (output) {
         case "console":
-            Test.output = testConsole;
+            TestJs.output = testConsole;
             break;
         case "document":
-            Test.output = testDocument;
+            TestJs.output = testDocument;
             break;
         default:
-            Test.output = testConsole;
+            TestJs.output = testConsole;
             break;
     }
-    Test.output.init();
-    Test.assert = function (assertion, value, text) {
+    TestJs.output.init();
+    TestJs.assert = function (assertion, value, text) {
         try {
             if (assertion === value) {
-                Test.output.print(text + " : Success");
+                TestJs.output.print(text + " : Success");
             } else {
-                Test.output.error(text + " : Failure (" + assertion + ")");
+                TestJs.output.error(text + " : Failure (" + assertion + ")");
             }        
         }
         catch (err) {
-            Test.output.error(text + " : Failure (" + err + ")");
+            TestJs.output.error(text + " : Failure (" + err + ")");
         }
     };
-    Test.info = function (text) {
-        Test.output.info(text);
+    TestJs.info = function (text) {
+        TestJs.output.info(text);
     };
-    Test.clear = function () {
-        Test.output.clear();
+    TestJs.clear = function () {
+        TestJs.output.clear();
     };
-    Test.stop = function () {
-        Test.output = testNull;
+    TestJs.stop = function () {
+        TestJs.output = testNull;
     };
-    return Test;
+    return TestJs;
 };

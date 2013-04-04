@@ -9,5 +9,11 @@
 
 
     <script src="TestJs.js"></script>
+    <script>
+        var test = new TestJs("document", "TestJs.css");
+        test.assert(true, true, "True");
+        test.assert(true, false, "True");
+        test.info("True");
+    </script>
 </body>
 </html>

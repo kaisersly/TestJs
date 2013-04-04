@@ -66,6 +66,12 @@ function TestJs (output) {
             this.ul.innerHTML = "";
         }   
     };
+    var testNull = {
+        print: function () {},
+        error: function () {},
+        info: function () {},
+        clear: function () {}
+    };
     switch (output) {
         case "console":
             Test.output = testConsole;
@@ -95,6 +101,9 @@ function TestJs (output) {
     };
     Test.clear = function () {
         Test.output.clear();
+    };
+    Test.stop = function () {
+        Test.output = testNull;
     };
     return Test;
 };

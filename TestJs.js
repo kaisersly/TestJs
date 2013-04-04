@@ -8,19 +8,24 @@ function TestJs (output) {
     function info(text) {
         window.console.info(text);
     };
+    function clear() {
+        window.console.clear();
+    };
     var Test = {};
     var testConsole = {
         init: function () {
-            this.print("Console Output");
         },
-        print: function(text) {
+        print: function (text) {
             log(text);
         },
-        error: function(text) {
+        error: function (text) {
             error(text);
         },
-        info: function(text) {
+        info: function (text) {
             info(text);
+        },
+        clear: function () {
+            clear();
         }
     };
     var testDocument = {
@@ -56,7 +61,10 @@ function TestJs (output) {
         },
         info: function (text) {
             this.li(text, "info");
-        }    
+        },
+        clear: function () {
+            this.ul.innerHTML = "";
+        }   
     };
     switch (output) {
         case "console":
@@ -71,14 +79,22 @@ function TestJs (output) {
     }
     Test.output.init();
     Test.assert = function (assertion, value, text) {
-        if (assertion === value) {
-            Test.output.print(text + " : Success");
-        } else {
-            Test.output.error(text + " : Failure (" + value + ")");
+        try {
+            if (assertion === value) {
+                Test.output.print(text + " : Success");
+            } else {
+                Test.output.error(text + " : Failure (" + assertion + ")");
+            }        
+        }
+        catch (err) {
+            Test.output.error(text + " : Failure (" + err + ")");
         }
     };
     Test.info = function (text) {
         Test.output.info(text);
+    };
+    Test.clear = function () {
+        Test.output.clear();
     };
     return Test;
 };
